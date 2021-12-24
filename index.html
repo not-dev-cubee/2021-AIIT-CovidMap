@@ -17,7 +17,8 @@
 	<div id="map" style="width:100%;height:100vh;"></div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript" src="(api key)&libraries=clusterer"></script>
-		<script>
+	
+	<script>
     		var map = new kakao.maps.Map(document.getElementById('map'), {
         		center : new kakao.maps.LatLng(35.202285015140866, 128.8041022115694),
         		level : 14
@@ -28,51 +29,51 @@
                   map: map
                 });
                  			
-				var clusterer = new kakao.maps.MarkerClusterer({
- 				 	map: map,
- 				 	averageCenter: true,
- 				 	minlevel: 10,
- 				 	calculator: [10, 30, 50],
- 				 	styles: [{
- 				 			width: '30px', height : '30px',
- 				 			background: 'rgba(51, 204, 255, .8)',
- 				 			borderRadius: '15px',
- 				 			color: '#000',
- 				 			textAlign: 'center',
- 				 			fontWeight: 'bold',
- 				 			lineHeight: '31px',
- 				 		},
- 				 		{
- 				 			width: '40px', height: '40px',
- 				 			background: 'rgba(255, 153, 0, .8)',
- 				 			borderRadius: '20px',
- 				 			color: '#000',
- 				 			textAlign: 'center',
- 				 			fontWeight: 'bold',
- 				 			lineHeight: '51px'
- 				 		},
- 				 		{
- 				 			width: '60px', height: '60px',
- 				 			background: 'rgba(255, 80, 80, .8)',
-							borderRadius: '30px',
-							color: '#000',
-							textAlign: 'center',
-							fontWeight: 'bold',
-							lineHeight: '61px'
-						}
-					]
-				});
+		var clusterer = new kakao.maps.MarkerClusterer({
+ 			 map: map,
+ 			 averageCenter: true,
+ 			 minlevel: 10,
+ 			 calculator: [10, 30, 50],
+ 			 styles: [{
+ 			 		width: '30px', height : '30px',
+ 			 		background: 'rgba(51, 204, 255, .8)',
+ 			 		borderRadius: '15px',
+ 			 		color: '#000',
+ 			 		textAlign: 'center',
+ 			 		fontWeight: 'bold',
+ 			 		lineHeight: '31px',
+ 			 	},
+ 			 	{
+ 			 		width: '40px', height: '40px',
+ 			 		background: 'rgba(255, 153, 0, .8)',
+ 			 		borderRadius: '20px',
+ 			 		color: '#000',
+ 			 		textAlign: 'center',
+ 			 		fontWeight: 'bold',
+ 			 		lineHeight: '51px'
+ 			 	},
+ 				 	{
+ 					width: '60px', height: '60px',
+ 			 		background: 'rgba(255, 80, 80, .8)',
+					borderRadius: '30px',
+					color: '#000',
+					textAlign: 'center',
+					fontWeight: 'bold',
+					lineHeight: '61px'
+				}
+			]
+		});
 
-				$.getJSON("https://raw.githubusercontent.com/not-dev-cubee/null/main/covid.json", function(data) {
- 				 	var infowindow = $(data.positions).map(function(i, position) {
- 				 		return new kakao.maps.InfoWindow({
- 				 			position : new kakao.maps.LatLng(position.xp, position.yp),
-							content: (position.loc)
- 				 			});
- 				 		});
- 				 	clusterer.addMarkers(infowindow);
-
-				});
+		$.getJSON("https://raw.githubusercontent.com/not-dev-cubee/null/main/covid.json", function(data) {
+ 			 var infowindow = $(data.positions).map(function(i, position) {
+ 			 	return new kakao.maps.InfoWindow({
+ 				 	position : new kakao.maps.LatLng(position.xp, position.yp),
+					content: (position.loc)
+ 				 	});
+ 				 });
+ 			 clusterer.addMarkers(infowindow);
+		});
+		
  	</script>
     </body>
 </html>
