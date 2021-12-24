@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Coronamap Pre. V6</title>
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <style>
+    body { 
+        font-family: 'Nanum Gothic', sans-serif;
+    } 
+    </style>
+</head>
+
+<body>
+	<p>글자가 튀어나오는 문제가 있을 수 있습니다.</p>
+	<div id="map" style="width:100%;height:100vh;"></div>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="(api key)&libraries=clusterer"></script>
+		<script>
+    		var map = new kakao.maps.Map(document.getElementById('map'), {
+        		center : new kakao.maps.LatLng(35.202285015140866, 128.8041022115694),
+        		level : 14
+    		});
+			
+                var marker = new kakao.maps.Marker({
+                  position: new kakao.maps.LatLng(35.202285015140866, 128.8041022115694),
+                  map: map
+                });
+                 			
+				var clusterer = new kakao.maps.MarkerClusterer({
+ 				 	map: map,
+ 				 	averageCenter: true,
+ 				 	minlevel: 10,
+ 				 	calculator: [10, 30, 50],
+ 				 	styles: [{
+ 				 			width: '30px', height : '30px',
+ 				 			background: 'rgba(51, 204, 255, .8)',
+ 				 			borderRadius: '15px',
+ 				 			color: '#000',
+ 				 			textAlign: 'center',
+ 				 			fontWeight: 'bold',
+ 				 			lineHeight: '31px',
+ 				 		},
+ 				 		{
+ 				 			width: '40px', height: '40px',
+ 				 			background: 'rgba(255, 153, 0, .8)',
+ 				 			borderRadius: '20px',
+ 				 			color: '#000',
+ 				 			textAlign: 'center',
+ 				 			fontWeight: 'bold',
+ 				 			lineHeight: '51px'
+ 				 		},
+ 				 		{
+ 				 			width: '60px', height: '60px',
+ 				 			background: 'rgba(255, 80, 80, .8)',
+							borderRadius: '30px',
+							color: '#000',
+							textAlign: 'center',
+							fontWeight: 'bold',
+							lineHeight: '61px'
+						}
+					]
+				});
+
+				$.getJSON("https://raw.githubusercontent.com/not-dev-cubee/null/main/covid.json", function(data) {
+ 				 	var infowindow = $(data.positions).map(function(i, position) {
+ 				 		return new kakao.maps.InfoWindow({
+ 				 			position : new kakao.maps.LatLng(position.xp, position.yp),
+							content: (position.loc)
+ 				 			});
+ 				 		});
+ 				 	clusterer.addMarkers(infowindow);
+
+				});
+ 	</script>
+    </body>
+</html>
